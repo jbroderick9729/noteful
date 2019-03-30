@@ -1,26 +1,47 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Route } from 'react-router-dom';
 import './App.css';
+import Header from './Header';
+import AllNotes from './AllNotes';
+import NavFolders from './NavFolders';
+import dummyStore from './dummyStore';
 
 class App extends Component {
+  state = {
+    store: dummyStore
+  }
+  
   render() {
+    
+    const { notes, folders } = this.state.store;
+    console.log('notes in state', notes);
+    console.log('folders in state', folders);
+    
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+      <div>
+        <header>
+            <Route path='/' component={Header} />
         </header>
-      </div>
+        <div className="main-section">
+          <nav>
+          <Route path='/' 
+                    render={() => <NavFolders folders={this.state.store.folders} />}
+          />
+              {/* <Route path='/notes/:notes.id' component={BackButton} /> */}
+          </nav>
+          <main>
+          <Route path='/' 
+                 render={() => <AllNotes notes={this.state.store.notes} />}
+          />
+          <Route path='/folder/:folders.id' 
+                 render={() => <AllNotes notes={this.state.store.notes} />}
+          />        
+
+
+              {/* <Route path='/notes/notes.id' component={NotesContent} /> */}
+          </main>
+        </div>  
+    </div>
     );
   }
 }
