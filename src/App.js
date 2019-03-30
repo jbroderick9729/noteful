@@ -24,18 +24,16 @@ class App extends Component {
         </header>
         <div className="main-section">
           <nav>
-          <Route path='/' 
+          <Route exact path='/' 
                     render={() => <NavFolders folders={this.state.store.folders} />}
           />
               {/* <Route path='/notes/:notes.id' component={BackButton} /> */}
           </nav>
           <main>
-          <Route path='/' 
+          {/* <Route path='/' 
                  render={() => <AllNotes notes={this.state.store.notes} />}
-          />
-          <Route path='/folder/:folders.id' 
-                 render={() => <AllNotes notes={this.state.store.notes} />}
-          />        
+          /> */}
+          <Route path='/folder/:folderId' component={AllNotes} />       
 
 
               {/* <Route path='/notes/notes.id' component={NotesContent} /> */}

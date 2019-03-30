@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
 import NoteItem from './NoteItem';
+import dummyStore from './dummyStore';
 
-export default class AllNotes extends Component {
-    render() {
-        console.log('this.props.notes', this.props.notes);
+export default function AllNotes(props) {
+        const notes = dummyStore.notes.filter(note => note.folderId === props.match.params.folderId)
+        .map(note => <NoteItem {...note} />)
+        console.log(notes);
 
-        const notes = this.props.notes.map(note => <NoteItem {...note}/>)
-       
         return (
             <ul>
-                { notes }
+                {notes}
             </ul>
         )
-    }
 }
 
-AllNotes.defaultProps = {
-    notes: []
-}
+// AllNotes.defaultProps = {
+//     notes: []
+// }
