@@ -8,12 +8,12 @@ import dummyStore from './dummyStore';
 
 class App extends Component {
   state = {
-    store: dummyStore
+    dummyStore
   }
   
   render() {
     
-    const { notes, folders } = this.state.store;
+    const { notes, folders } = this.state.dummyStore;
     console.log('notes in state', notes);
     console.log('folders in state', folders);
     
@@ -24,22 +24,23 @@ class App extends Component {
         </header>
         <div className="main-section">
           <nav>
-          <Route exact path='/' 
-                    render={() => <NavFolders folders={this.state.store.folders} />}
+          <Route path='/' 
+                    render={() => <NavFolders folders={folders} />}
           />
-              {/* <Route path='/notes/:notes.id' component={BackButton} /> */}
           </nav>
           <main>
-          {/* <Route path='/' 
-                 render={() => <AllNotes notes={this.state.store.notes} />}
-          /> */}
-          <Route path='/folder/:folderId' component={AllNotes} />       
-
-
-              {/* <Route path='/notes/notes.id' component={NotesContent} /> */}
+          <Route exact path='/' render={({match}) => {
+              const note = this.state.dummyStore.notes.filter(note => note.folderId !== match.params.folderId)
+              .map((note) => note)
+            return <AllNotes notes={note} />}}/>  
+          <Route path='/folder/:folderId' render={({match}) => {
+              const note = this.state.dummyStore.notes.filter(note => note.folderId === match.params.folderId)
+              .map((note) => note)
+             return <AllNotes notes={note} match={match}/>}
+          } />       
           </main>
         </div>  
-    </div>
+      </div>
     );
   }
 }
