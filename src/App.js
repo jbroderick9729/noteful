@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import './App.css';
 import Header from './Header';
-import AllNotes from './AllNotes';
+import NoteList from './NoteList';
 import NavFolders from './NavFolders';
 import dummyStore from './dummyStore';
 
@@ -29,14 +29,13 @@ class App extends Component {
           />
           </nav>
           <main>
-          <Route exact path='/' render={({match}) => {
-              const note = this.state.dummyStore.notes.filter(note => note.folderId !== match.params.folderId)
-              .map((note) => note)
-            return <AllNotes notes={note} />}}/>  
+          <Route exact path='/' render={() => {
+              const note = this.state.dummyStore.notes.map(note => note)
+            return <NoteList notes={note} />}}/>  
           <Route path='/folder/:folderId' render={({match}) => {
               const note = this.state.dummyStore.notes.filter(note => note.folderId === match.params.folderId)
               .map((note) => note)
-             return <AllNotes notes={note} match={match}/>}
+             return <NoteList notes={note} match={match}/>}
           } />       
           </main>
         </div>  

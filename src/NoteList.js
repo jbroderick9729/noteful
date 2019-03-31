@@ -1,7 +1,7 @@
 import React from 'react';
 import NoteItem from './NoteItem';
 
-export default function AllNotes(props) {
+export default function NoteList(props) {
     // console.log(props)
     // let notes;
     // console.log(props.notes)
@@ -24,6 +24,6 @@ export default function AllNotes(props) {
         )
 }
 
-AllNotes.defaultProps = {
+NoteList.defaultProps = {
     notes: []
 }
