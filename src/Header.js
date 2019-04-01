@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default class Header extends Component {
-    render() {
+export default function Header() {
         return (
-            <header>
-                <Link to='/'><h1 role="banner">Noteful</h1></Link>
-            </header>
+                <header>
+                    <Link to='/'>
+                        <h1>Noteful</h1>
+                    </Link>  
+                </header>
         )
-    }
 }

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './Header';
 import AllNotes from './AllNotes';
 import NavFolders from './NavFolders';
+import NoteDetail from './NoteDetail';
 import dummyStore from './dummyStore';
+import BackButton from './BackButton';
 
 class App extends Component {
   state = {
@@ -13,32 +15,21 @@ class App extends Component {
   
   render() {
     
-    const { notes, folders } = this.state.store;
-    console.log('notes in state', notes);
-    console.log('folders in state', folders);
     
     return (
       <div>
-        <header>
-            <Route path='/' component={Header} />
-        </header>
+        <Header />
         <div className="main-section">
           <nav>
-          <Route path='/' 
-                    render={() => <NavFolders folders={this.state.store.folders} />}
-          />
-              {/* <Route path='/notes/:notes.id' component={BackButton} /> */}
+          <Switch>
+            <Route exact path='/' render={() => <NavFolders folders={this.state.store.folders}/>}/>
+            <Route path='/' component={BackButton} />
+          </Switch>
           </nav>
           <main>
-          <Route path='/' 
-                 render={() => <AllNotes notes={this.state.store.notes} />}
-          />
-          <Route path='/folder/:folders.id' 
-                 render={() => <AllNotes notes={this.state.store.notes} />}
-          />        
-
-
-              {/* <Route path='/notes/notes.id' component={NotesContent} /> */}
+            <Route exact path='/' render={() => <AllNotes notes={this.state.store.notes}/>}/>
+            <Route path='/folders/:folderId' render={(props) => <AllNotes notes={this.state.store.notes.filter(note => props.match.params.folderId === note.folderId)}/>}/>
+            <Route path='/notes/:noteId' render={(props) => <NoteDetail noteInfo={this.state.store.notes.find(note => note.id === props.match.params.noteId )} />}/>
           </main>
         </div>  
     </div>
