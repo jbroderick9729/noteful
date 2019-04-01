@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class NoteItem extends Component {
+export default function NoteItem(props) {
 
-    render() {
-        return (
-            <li>
-                <p>{this.props.name}</p>
-                <p>{this.props.modified}</p>
-            </li>
-        )
-    }
+    return (
+        <li>
+            <p>{props.name}</p>
+            <p>{props.modified}</p>
+        </li>
+    )
 }
