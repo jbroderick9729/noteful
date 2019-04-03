@@ -4,6 +4,7 @@ import './App.css';
 import Header from './Header';
 import NoteList from './NoteList';
 import NavFolders from './NavFolders';
+import NotePage from './NotePage';
 import dummyStore from './dummyStore';
 
 class App extends Component {
@@ -24,19 +25,25 @@ class App extends Component {
         </header>
         <div className="main-section">
           <nav>
-          <Route path='/' 
+          <Route exact path='/' 
+                    render={() => <NavFolders folders={folders} />}
+          />
+          <Route exact path='/folder/:folderId' 
                     render={() => <NavFolders folders={folders} />}
           />
           </nav>
           <main>
           <Route exact path='/' render={() => {
-              const note = this.state.dummyStore.notes.map(note => note)
+              const note = notes.map(note => note)
             return <NoteList notes={note} />}}/>  
-          <Route path='/folder/:folderId' render={({match}) => {
-              const note = this.state.dummyStore.notes.filter(note => note.folderId === match.params.folderId)
+          <Route exact path='/folder/:folderId' render={({match}) => {
+              const note = notes.filter(note => note.folderId === match.params.folderId)
               .map((note) => note)
              return <NoteList notes={note} match={match}/>}
-          } />       
+          } />
+          <Route path='/note/:noteId' render={({match, history}) => {
+            const note = notes.filter(note => note.id === match.params.noteId)
+            return <NotePage {...note[0]} match={match} history={history}/>}} />
           </main>
         </div>  
       </div>
