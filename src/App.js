@@ -39,11 +39,11 @@ class App extends Component {
           <Route exact path='/folder/:folderId' render={({match}) => {
               const note = notes.filter(note => note.folderId === match.params.folderId)
               .map((note) => note)
-             return <NoteList notes={note} match={match}/>}
+             return <NoteList notes={note} />}
           } />
           <Route path='/note/:noteId' render={({match, history}) => {
             const note = notes.filter(note => note.id === match.params.noteId)
-            return <NotePage {...note[0]} match={match} history={history}/>}} />
+            return <NotePage {...note[0]} history={history}/>}} />
           </main>
         </div>  
       </div>

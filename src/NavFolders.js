@@ -1,15 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Folder from './Folder';
 
-export default class NavFolders extends Component {
-    render() {
+export default function NavFolders(props) {
        
-        const folders = this.props.folders.map(folder => <Folder key={folder.id} {...folder} />)
+        const folders = props.folders.map(folder => <Folder key={folder.id} {...folder} />)
 
         return (
             <ul>
                 { folders }
             </ul>
         )
-    }
 }
